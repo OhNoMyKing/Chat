@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./chat-app
+    ports:
+      - "3002:80" # ReactJS sẽ được serve qua Nginx tại cổng 3000
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./websocket
+    ports:
+      - "3001:3001" # Backend sẽ chạy tại cổng 3001
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
